@@ -1,19 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { Building2, Radio, Megaphone, ShoppingBag, Banknote, GraduationCap, PartyPopper, Bus } from "lucide-react";
 import { PageHero } from "../components/site/PageHero";
 import { CTASection } from "../components/site/CTASection";
-
-export const Route = createFileRoute("/industries")({
-  head: () => ({
-    meta: [
-      { title: "Industries | SmartSense Technologies" },
-      { name: "description", content: "Use cases across government, telecoms, media, retail, financial services, education, events and transport." },
-      { property: "og:title", content: "Industries | SmartSense Technologies" },
-      { property: "og:description", content: "Built for high-impact sectors across Africa." },
-    ],
-  }),
-  component: IndustriesPage,
-});
+import { PageMeta } from "../lib/PageMeta";
 
 const SECTORS = [
   { icon: Building2, name: "Government & Public Sector", uses: ["Public campaigns", "Citizen engagement", "Digital service explainers", "SME intelligence"] },
@@ -26,9 +14,15 @@ const SECTORS = [
   { icon: Bus, name: "Transport & Institutions", uses: ["Access systems", "Smart verification", "Public messaging", "QR-linked information"] },
 ];
 
-function IndustriesPage() {
+export default function Industries() {
   return (
     <>
+      <PageMeta
+        title="Industries | SmartSense Technologies"
+        description="Use cases across government, telecoms, media, retail, financial services, education, events and transport."
+        ogTitle="Industries | SmartSense Technologies"
+        ogDescription="Built for high-impact sectors across Africa."
+      />
       <PageHero eyebrow="Industries" title="Built for High-Impact Sectors" subtitle="From public institutions to consumer brands — SmartSense delivers measurable, intelligent experiences across the sectors that move African economies." />
       <section className="mx-auto max-w-7xl container-px mt-20">
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">

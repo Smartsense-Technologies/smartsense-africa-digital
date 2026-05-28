@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { NavLink, Link } from "react-router-dom";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 
@@ -26,15 +26,16 @@ export function Header() {
         </Link>
         <nav className="hidden xl:flex items-center gap-6">
           {NAV.map((n) => (
-            <Link
+            <NavLink
               key={n.to}
               to={n.to}
-              activeOptions={{ exact: n.to === "/" }}
-              activeProps={{ className: "text-secondary" }}
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              end={n.to === "/"}
+              className={({ isActive }) =>
+                `text-sm font-medium transition-colors ${isActive ? "text-secondary" : "text-muted-foreground hover:text-foreground"}`
+              }
             >
               {n.label}
-            </Link>
+            </NavLink>
           ))}
         </nav>
         <div className="hidden xl:block">
@@ -50,16 +51,17 @@ export function Header() {
         <div className="xl:hidden border-t border-border bg-background">
           <nav className="mx-auto max-w-7xl container-px py-4 flex flex-col gap-1">
             {NAV.map((n) => (
-              <Link
+              <NavLink
                 key={n.to}
                 to={n.to}
+                end={n.to === "/"}
                 onClick={() => setOpen(false)}
-                activeOptions={{ exact: n.to === "/" }}
-                activeProps={{ className: "text-secondary bg-muted" }}
-                className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-muted"
+                className={({ isActive }) =>
+                  `rounded-md px-3 py-2 text-sm font-medium ${isActive ? "text-secondary bg-muted" : "text-muted-foreground hover:bg-muted"}`
+                }
               >
                 {n.label}
-              </Link>
+              </NavLink>
             ))}
             <Link to="/contact" onClick={() => setOpen(false)} className="mt-2 inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground">
               Request a Demo

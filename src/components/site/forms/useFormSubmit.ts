@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "@tanstack/react-router";
+import { useNavigate } from "react-router-dom";
 
 // Generic submit handler stub — designed to later POST to Brevo (or a
 // server endpoint that proxies to Brevo) and verify the Turnstile token.
@@ -17,7 +17,7 @@ export function useFormSubmit(formName: string) {
       // if (!res.ok) throw new Error("Submission failed");
       await new Promise((r) => setTimeout(r, 700));
       console.info("[SmartSense form]", formName, payload);
-      navigate({ to: "/thank-you" });
+      navigate("/thank-you");
     } catch (e) {
       setStatus("error");
       setError(e instanceof Error ? e.message : "Something went wrong. Please try again.");

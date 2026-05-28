@@ -1,20 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { Megaphone, Users2, ShieldCheck, BarChart3, GraduationCap, Smartphone, BrainCircuit, CreditCard } from "lucide-react";
 import { PageHero } from "../components/site/PageHero";
 import { CTASection } from "../components/site/CTASection";
 import { SectionHeading } from "../components/site/SectionHeading";
-
-export const Route = createFileRoute("/government")({
-  head: () => ({
-    meta: [
-      { title: "Government & Public Sector | SmartSense Technologies" },
-      { name: "description", content: "SmartSense partners with public institutions to design, pilot and scale practical digital solutions for communication, citizen engagement and economic intelligence." },
-      { property: "og:title", content: "Government & Public Sector | SmartSense" },
-      { property: "og:description", content: "Digital innovation for public communication, citizen engagement and economic intelligence." },
-    ],
-  }),
-  component: GovernmentPage,
-});
+import { PageMeta } from "../lib/PageMeta";
 
 const HELP = [
   { i: Megaphone, t: "Interactive public communication" },
@@ -47,9 +35,15 @@ const MODELS = [
   { t: "Agency-specific transformation", b: "Targeted programs for ministries and agencies." },
 ];
 
-function GovernmentPage() {
+export default function Government() {
   return (
     <>
+      <PageMeta
+        title="Government & Public Sector | SmartSense Technologies"
+        description="SmartSense partners with public institutions to design, pilot and scale practical digital solutions for communication, citizen engagement and economic intelligence."
+        ogTitle="Government & Public Sector | SmartSense"
+        ogDescription="Digital innovation for public communication, citizen engagement and economic intelligence."
+      />
       <PageHero eyebrow="Government & Public Sector" title="Digital Innovation for Public Communication, Citizen Engagement and Economic Intelligence" subtitle="SmartSense works with public institutions to design, pilot and scale practical digital solutions that improve communication, access, visibility and service delivery." />
 
       <section className="mx-auto max-w-7xl container-px mt-20">

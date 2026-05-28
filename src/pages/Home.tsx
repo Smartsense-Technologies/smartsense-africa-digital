@@ -1,19 +1,8 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { Sparkles, BrainCircuit, Building2, Globe2, ArrowRight, Smartphone, BarChart3, Handshake } from "lucide-react";
 import { CTASection } from "../components/site/CTASection";
 import { SectionHeading } from "../components/site/SectionHeading";
-
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "SmartSense Technologies | Intelligent Digital Experiences for Africa" },
-      { name: "description", content: "SmartSense Technologies helps brands, institutions and governments deploy AI-powered, immersive and mobile-first digital solutions across Africa." },
-      { property: "og:title", content: "SmartSense Technologies | Get Smarter" },
-      { property: "og:description", content: "AI-powered, immersive and mobile-first digital solutions for African brands, institutions and governments." },
-    ],
-  }),
-  component: HomePage,
-});
+import { PageMeta } from "../lib/PageMeta";
 
 const PILLARS = [
   { icon: Sparkles, title: "Immersive Engagement", body: "Mixed reality and interactive media that turn audiences into participants." },
@@ -41,10 +30,15 @@ const WHY = [
   { icon: ArrowRight, title: "Concept → pilot → scale", body: "We move from idea to deployment without losing momentum." },
 ];
 
-function HomePage() {
+export default function Home() {
   return (
     <>
-      {/* Hero */}
+      <PageMeta
+        title="SmartSense Technologies | Intelligent Digital Experiences for Africa"
+        description="SmartSense Technologies helps brands, institutions and governments deploy AI-powered, immersive and mobile-first digital solutions across Africa."
+        ogTitle="SmartSense Technologies | Get Smarter"
+        ogDescription="AI-powered, immersive and mobile-first digital solutions for African brands, institutions and governments."
+      />
       <section className="relative overflow-hidden bg-hero text-white">
         <div className="absolute inset-0 grid-pattern opacity-40" />
         <div className="absolute -top-40 -right-40 h-96 w-96 rounded-full bg-cyan/20 blur-3xl" />
@@ -67,7 +61,6 @@ function HomePage() {
         </div>
       </section>
 
-      {/* Intro */}
       <section className="mx-auto max-w-7xl container-px mt-20">
         <div className="grid gap-10 md:grid-cols-3 items-start">
           <SectionHeading eyebrow="Who we are" title="Africa's intelligent infrastructure & digital innovation partner" />
@@ -77,7 +70,6 @@ function HomePage() {
         </div>
       </section>
 
-      {/* Now in market */}
       <section className="mx-auto max-w-7xl container-px mt-20">
         <div className="overflow-hidden rounded-2xl border border-border bg-soft p-8 md:p-12 shadow-elegant">
           <div className="grid md:grid-cols-2 gap-8 items-center">
@@ -103,7 +95,6 @@ function HomePage() {
         </div>
       </section>
 
-      {/* Pillars */}
       <section className="mx-auto max-w-7xl container-px mt-24">
         <SectionHeading eyebrow="Core Pillars" title="Four pillars of intelligent engagement" />
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -119,7 +110,6 @@ function HomePage() {
         </div>
       </section>
 
-      {/* Use cases */}
       <section className="mx-auto max-w-7xl container-px mt-24">
         <SectionHeading eyebrow="Key use cases" title="Where SmartSense delivers impact" />
         <div className="mt-10 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
@@ -131,7 +121,6 @@ function HomePage() {
         </div>
       </section>
 
-      {/* Why */}
       <section className="mx-auto max-w-7xl container-px mt-24">
         <SectionHeading eyebrow="Why SmartSense" title="Built for African scale, designed for global standards" />
         <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">

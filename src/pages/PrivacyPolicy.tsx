@@ -1,17 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { PageHero } from "../components/site/PageHero";
-
-export const Route = createFileRoute("/privacy-policy")({
-  head: () => ({
-    meta: [
-      { title: "Privacy Policy | SmartSense Technologies" },
-      { name: "description", content: "How SmartSense Technologies collects, uses and protects information submitted through our website." },
-      { property: "og:title", content: "Privacy Policy | SmartSense Technologies" },
-      { property: "og:description", content: "Privacy practices for the SmartSense Technologies website." },
-    ],
-  }),
-  component: PrivacyPage,
-});
+import { PageMeta } from "../lib/PageMeta";
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -22,9 +10,15 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   );
 }
 
-function PrivacyPage() {
+export default function PrivacyPolicy() {
   return (
     <>
+      <PageMeta
+        title="Privacy Policy | SmartSense Technologies"
+        description="How SmartSense Technologies collects, uses and protects information submitted through our website."
+        ogTitle="Privacy Policy | SmartSense Technologies"
+        ogDescription="Privacy practices for the SmartSense Technologies website."
+      />
       <PageHero eyebrow="Privacy" title="Privacy Policy" subtitle="This policy describes how SmartSense Technologies handles information submitted through our website and business enquiry forms." />
       <article className="mx-auto max-w-3xl container-px mt-16 space-y-10 pb-16">
         <p className="text-sm text-muted-foreground">Last updated: {new Date().toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" })}</p>

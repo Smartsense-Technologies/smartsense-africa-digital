@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 
 export function CTASection({
   title = "Ready to explore intelligent engagement?",
@@ -23,10 +23,10 @@ export function CTASection({
           <h2 className="text-3xl md:text-4xl font-bold">{title}</h2>
           <p className="mt-3 text-white/80">{subtitle}</p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <Link to={primaryTo as any} className="inline-flex items-center rounded-md bg-accent-gradient px-5 py-3 text-sm font-semibold text-accent-foreground shadow-glow hover:opacity-95">
+            <Link to={primaryTo} className="inline-flex items-center rounded-md bg-accent-gradient px-5 py-3 text-sm font-semibold text-accent-foreground shadow-glow hover:opacity-95">
               {primaryLabel}
             </Link>
-            <Link to={secondaryTo as any} className="inline-flex items-center rounded-md border border-white/30 bg-white/5 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10">
+            <Link to={secondaryTo} className="inline-flex items-center rounded-md border border-white/30 bg-white/5 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10">
               {secondaryLabel}
             </Link>
           </div>

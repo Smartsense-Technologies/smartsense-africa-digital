@@ -1,20 +1,8 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
 import { QrCode, Smartphone, Sparkles, Send, BarChart3, CheckCircle2 } from "lucide-react";
 import { PageHero } from "../components/site/PageHero";
 import { CTASection } from "../components/site/CTASection";
 import { SectionHeading } from "../components/site/SectionHeading";
-
-export const Route = createFileRoute("/solutions/mixed-reality")({
-  head: () => ({
-    meta: [
-      { title: "Mixed Reality Experiences | SmartSense Technologies" },
-      { name: "description", content: "Flam-powered mixed reality experiences that turn print, OOH, TV, packaging, smart cards and events into interactive, measurable channels." },
-      { property: "og:title", content: "Mixed Reality Experiences | SmartSense" },
-      { property: "og:description", content: "Turn static media into interactive, measurable experiences." },
-    ],
-  }),
-  component: MixedRealityPage,
-});
+import { PageMeta } from "../lib/PageMeta";
 
 const STEPS = [
   { icon: QrCode, t: "Scan or tap", b: "Audience scans a QR code, taps a link or opens a camera experience." },
@@ -59,9 +47,15 @@ const DEMOS = [
   "Event Activation",
 ];
 
-function MixedRealityPage() {
+export default function SolutionsMixedReality() {
   return (
     <>
+      <PageMeta
+        title="Mixed Reality Experiences | SmartSense Technologies"
+        description="Flam-powered mixed reality experiences that turn print, OOH, TV, packaging, smart cards and events into interactive, measurable channels."
+        ogTitle="Mixed Reality Experiences | SmartSense"
+        ogDescription="Turn static media into interactive, measurable experiences."
+      />
       <PageHero eyebrow="Flagship Solution · Now in Market" title="Turn Static Media Into Interactive, Measurable Experiences" subtitle="Through Flam-powered mixed reality technology, SmartSense helps brands, agencies, media owners and public institutions transform print, OOH, TV, packaging, smart cards, events and digital channels into immersive audience experiences." />
 
       <section className="mx-auto max-w-7xl container-px mt-20">

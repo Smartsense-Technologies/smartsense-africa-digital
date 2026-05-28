@@ -1,22 +1,10 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { PageHero } from "../components/site/PageHero";
 import { DemoForm } from "../components/site/forms/DemoForm";
 import { GovernmentForm } from "../components/site/forms/GovernmentForm";
 import { BrandForm } from "../components/site/forms/BrandForm";
 import { GeneralForm } from "../components/site/forms/GeneralForm";
-
-export const Route = createFileRoute("/contact")({
-  head: () => ({
-    meta: [
-      { title: "Contact / Request Demo | SmartSense Technologies" },
-      { name: "description", content: "Request a demo, discuss government partnership, brief us on a campaign or send a general enquiry to SmartSense Technologies." },
-      { property: "og:title", content: "Contact SmartSense Technologies" },
-      { property: "og:description", content: "Talk to our team about intelligent digital experiences for your organization." },
-    ],
-  }),
-  component: ContactPage,
-});
+import { PageMeta } from "../lib/PageMeta";
 
 const TABS = [
   { id: "demo", label: "Request a Demo" },
@@ -27,10 +15,16 @@ const TABS = [
 
 type TabId = (typeof TABS)[number]["id"];
 
-function ContactPage() {
+export default function Contact() {
   const [tab, setTab] = useState<TabId>("demo");
   return (
     <>
+      <PageMeta
+        title="Contact / Request Demo | SmartSense Technologies"
+        description="Request a demo, discuss government partnership, brief us on a campaign or send a general enquiry to SmartSense Technologies."
+        ogTitle="Contact SmartSense Technologies"
+        ogDescription="Talk to our team about intelligent digital experiences for your organization."
+      />
       <PageHero eyebrow="Contact" title="Let's Get Smarter, together" subtitle="Choose the path that fits your enquiry. Our team will respond within typical business hours." />
 
       <section className="mx-auto max-w-5xl container-px mt-12">
