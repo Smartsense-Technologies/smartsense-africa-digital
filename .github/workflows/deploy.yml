@@ -30,12 +30,9 @@ jobs:
           CI: true
         run: npm run build
 
-      - name: SPA fallback
-        run: cp dist/client/index.html dist/client/404.html
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist/client
-          cname: smartsense.africa
+      - name: Find build files
+        run: |
+          echo "Find HTML files:"
+          find . -name "*.html" -print
+          echo "Find build output folders:"
+          find dist -maxdepth 4 -type f | head -100
