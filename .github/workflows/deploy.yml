@@ -30,13 +30,12 @@ jobs:
           CI: true
         run: npm run build
 
-      - name: Inspect build output
-        run: |
-          echo "Root files:"
-          ls -la
-          echo "Dist files:"
-          ls -la dist || true
-          echo "Dist client files:"
-          ls -la dist/client || true
-          echo "Output public files:"
-          ls -la .output/public || true
+      - name: SPA fallback
+        run: cp dist/client/index.html dist/client/404.html
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist/client
+          cname: smartsense.africa
