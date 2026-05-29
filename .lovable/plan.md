@@ -1,148 +1,78 @@
 ## Goal
 
-Convert the SmartSense Technologies site from a TanStack Start (SSR / Cloudflare Workers) project into a fully static Vite + React SPA that builds to `dist/` and deploys to GitHub Pages at the custom root domain `smartsense.africa`.
+Connect the four Contact page forms (Request a Demo, Government Partnership, Brand / Agency Campaign, General Contact) to the secure Cloudflare Worker, add a real Cloudflare Turnstile widget, and standardize the submit payload — while keeping the site fully static and secret-free.
 
-All pages, routes, content, styling, and responsive design are preserved. No backend, no Supabase, no Turnstile secrets, no Brevo API — forms remain UI-only placeholders that already exist.
+Worker endpoint: `https://smartsense-form-handler.smartsensetech.workers.dev/submit`
 
-## Scope of changes
+## 1. Real Turnstile widget (`src/components/site/forms/Turnstile.tsx`)
 
-### 1. Dependencies (package.json)
+Replace the current placeholder with a working widget:
+- Inject the Cloudflare Turnstile script (`https://challenges.cloudflare.com/turnstile/v0/api.js`) once.
+- Render the widget explicitly using `VITE_TURNSTILE_SITE_KEY`.
+- Expose the token to the parent via an `onToken(token)` callback, and a `reset()` method via `forwardRef`/`useImperativeHandle` so forms can reload the widget after each submission attempt.
+- If `VITE_TURNSTILE_SITE_KEY` is unset, keep a visible dev placeholder so local builds don't break.
+- No secret key anywhere.
 
-Remove:
-- `@tanstack/react-start`
-- `@tanstack/router-plugin`
-- `@cloudflare/vite-plugin`
-- `@lovable.dev/vite-tanstack-config`
+## 2. Shared submit hook (`src/components/site/forms/useFormSubmit.ts`)
 
-Keep `@tanstack/react-router` (used in client-side routing mode) and `@tanstack/react-query`.
+Rework into a generic JSON POST helper:
+- `submit(payload)` does `fetch(WORKER_URL, { method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify(payload) })`.
+- On `success: true` → set `status = "success"` (no localStorage).
+- On failure/non-2xx/`success:false` → set `status = "error"` with a friendly message.
+- Expose `status` (`idle | loading | success | error`), `error`, and a `reset()`.
+- Remove the `/thank-you` navigation in favor of an inline success state (form is reset and a success message shown). Keep `ThankYou.tsx` route untouched.
 
-Add:
-- `react-router-dom` (simpler, well-known SPA router — chosen over keeping TanStack Router because the current setup is tightly coupled to the file-based generator and SSR plugin; swapping to react-router-dom is the cleanest static conversion).
+## 3. Standard payload shape
 
-Scripts: keep `dev`, `build`, `preview` mapped to plain `vite`.
+Every form builds this exact JSON body:
 
-### 2. Vite config (`vite.config.ts`)
-
-Replace the `@lovable.dev/vite-tanstack-config` wrapper with a standard config:
-
-```ts
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import tailwindcss from "@tailwindcss/vite";
-import tsconfigPaths from "vite-tsconfig-paths";
-
-export default defineConfig({
-  base: "/",
-  plugins: [react(), tailwindcss(), tsconfigPaths()],
-  build: { outDir: "dist" },
-});
+```text
+{
+  formType, firstName, lastName, email, phone,
+  organization, role, sector, message,
+  marketingOptIn, sourcePage, turnstileToken
+}
 ```
 
-### 3. Entry points
+- `sourcePage`: `"https://smartsense.africa/contact"`
+- `formType` per form: `demo_request`, `government_partnership`, `brand_agency_campaign`, `general_contact`.
+- Form-specific extras that don't map to the schema (e.g. Demo Interest, Area of Interest, campaign channels/type, enquiry type, meeting format) get appended into the `message` field as readable labelled lines, so no information is lost.
 
-Create:
-- `index.html` at project root with `<div id="root">` and `<script type="module" src="/src/main.tsx">`.
-- `src/main.tsx` — mounts `<App />` inside `BrowserRouter`, imports `./styles.css`, and includes a small head-tag manager (react-helmet-async or a tiny custom effect) so each page can still set `<title>` / meta.
-- `src/App.tsx` — defines `<Routes>` mapping every existing path to its page component, wrapped in shared `<Header />` / `<Footer />` layout.
+## 4. Shared form fields (`src/components/site/forms/FormFields.tsx`)
 
-### 4. Routes migration
+- Add a reusable `ConsentCheckbox` block with the required consent text plus a `<Link to="/privacy-policy">Privacy Policy</Link>` next to it.
+- Add a `MarketingOptInCheckbox` with the marketing text.
+- Add a `SuccessMessage` and shared validation helpers (required-field check + email regex).
+- Keep existing `Field`, `TextInput`, `TextArea`, `Select`.
 
-Convert each file in `src/routes/` into a plain React component under `src/pages/`:
+## 5. Update each form
 
-| Old file | New page | URL |
-|---|---|---|
-| `index.tsx` | `pages/Home.tsx` | `/` |
-| `about.tsx` | `pages/About.tsx` | `/about` |
-| `solutions.index.tsx` | `pages/Solutions.tsx` | `/solutions` |
-| `solutions.mixed-reality.tsx` | `pages/SolutionsMixedReality.tsx` | `/solutions/mixed-reality` |
-| `government.tsx` | `pages/Government.tsx` | `/government` |
-| `innovation-portfolio.tsx` | `pages/InnovationPortfolio.tsx` | `/innovation-portfolio` |
-| `industries.tsx` | `pages/Industries.tsx` | `/industries` |
-| `contact.tsx` | `pages/Contact.tsx` | `/contact` |
-| `privacy-policy.tsx` | `pages/PrivacyPolicy.tsx` | `/privacy-policy` |
-| `thank-you.tsx` | `pages/ThankYou.tsx` | `/thank-you` |
-| `__root.tsx` | `components/site/Layout.tsx` | wraps `<Outlet />` |
+For all four forms (`DemoForm`, `GovernmentForm`, `BrandForm`, `GeneralForm`):
+- Replace single "Full Name" / "Contact Person" with **First Name** + **Last Name** (both required).
+- Required: firstName, lastName, email, organization (optional only in General Contact), message, consent checkbox, Turnstile token.
+- Optional: phone, role, sector, marketingOptIn.
+- Add the Turnstile widget (with ref) and the marketing opt-in checkbox.
+- Client-side validation before submit: required fields filled + valid email; if Turnstile token missing, block and show **"Please complete the verification before submitting."**
+- Disable submit + show loading label while `status === "loading"`.
+- On success: show success message and reset the form fields and Turnstile widget.
+- On error: show friendly error text; reset/reload Turnstile so the user can retry.
 
-Add a catch-all `*` route rendering the existing 404 UI from `__root.tsx`.
+Per-form field mapping to the schema:
+- **Demo** → organization (required), role, sector; Demo Interest folded into message.
+- **Government** → organization = institution (required), role, sector = Area of Interest; meeting format folded into message.
+- **Brand/Agency** → organization = brand/agency (required), role = contact role; campaign type, channels, timeline, budget, audience folded into message.
+- **General** → organization optional; enquiry type folded into message.
 
-For each page: strip `createFileRoute(...)` / `Route = ...` boilerplate, export the component as default, and convert `head: () => ({ meta: [...] })` into a small `<PageMeta title="..." description="..." />` helper that sets `document.title` and updates meta tags in `useEffect`.
+## 6. Environment / security
 
-### 5. Navigation primitives
+- Use `VITE_TURNSTILE_SITE_KEY` (frontend-safe) only.
+- No Supabase, no databases, no backend routes, no secret keys, no Brevo key, no Turnstile secret — nothing secret added to the repo or code.
+- Site stays static / frontend-only.
 
-Codemod across all components:
-- `import { Link } from "@tanstack/react-router"` → `import { Link } from "react-router-dom"`
-- `<Link to="/about">` stays the same (react-router-dom accepts identical `to` prop)
-- `useNavigate` from `@tanstack/react-router` → from `react-router-dom`; replace `navigate({ to: "/thank-you" })` with `navigate("/thank-you")` in `useFormSubmit.ts`.
+## 7. Deployment
 
-Files known to use these: `Header.tsx`, `Footer.tsx`, `CTASection.tsx`, `__root.tsx` (for 404), each route file, and `forms/useFormSubmit.ts`.
-
-### 6. Delete server / SSR artifacts
-
-Remove:
-- `src/router.tsx`
-- `src/routeTree.gen.ts`
-- `src/routes/` directory (after migration)
-- `wrangler.jsonc`
-- Any `*.server.ts`, `*.functions.ts`, `start.ts`, server-entry references (none currently in tree beyond the standard template — verify and delete any that exist).
-
-### 7. GitHub Pages SPA support
-
-- Add `public/CNAME` containing `smartsense.africa` so Pages keeps the custom domain.
-- Add `public/.nojekyll` (empty file) so asset paths starting with `_` are served.
-- In the deploy workflow, copy `dist/index.html` → `dist/404.html` so deep-link refreshes work on Pages.
-
-### 8. GitHub Actions workflow (`.github/workflows/deploy.yml`)
-
-Replace the current placeholder workflow with one that publishes `dist/` to Pages:
-
-```yaml
-name: Deploy to GitHub Pages
-on:
-  push: { branches: [main] }
-  workflow_dispatch:
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-concurrency:
-  group: pages
-  cancel-in-progress: true
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: { node-version: 22, cache: npm }
-      - run: npm ci
-      - run: npm run build
-      - run: cp dist/index.html dist/404.html
-      - uses: actions/upload-pages-artifact@v3
-        with: { path: dist }
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
-```
-
-### 9. Forms
-
-Keep `BrandForm`, `DemoForm`, `GeneralForm`, `GovernmentForm`, `useFormSubmit.ts`, and `Turnstile.tsx` exactly as they are — they already simulate submission client-side and redirect to `/thank-you`. No backend wiring is added. The `TODO` for Brevo / Turnstile remains as a documented placeholder for future work.
-
-### 10. Verification
-
-After conversion:
-- `npm run build` produces `dist/index.html` + `dist/assets/`.
-- `npm run preview` serves the SPA; every listed route renders with correct content, header/footer, and updates `<title>`.
-- 404 fallback renders the existing not-found UI for unknown URLs.
+Changes sync to the connected GitHub repository automatically, triggering the existing GitHub Actions Pages workflow to rebuild and deploy `dist` to `smartsense.africa`. You'll need to ensure `VITE_TURNSTILE_SITE_KEY` is available to the GitHub Actions build (as a repo variable/secret used at build time) for the live widget to render with your real site key.
 
 ## Out of scope
 
-- No new backend, database, auth, email, or Turnstile integration.
-- No content, copy, or visual redesign — pure infrastructure conversion.
-- Repository GitHub Pages settings (Settings → Pages → Source: GitHub Actions, custom domain `smartsense.africa`, enforce HTTPS) must be enabled once in the GitHub UI — this cannot be done from code.
+No content redesign, no file uploads, no direct Brevo calls, no new backend. `ThankYou` page left as-is (forms now use inline success instead of redirecting).
