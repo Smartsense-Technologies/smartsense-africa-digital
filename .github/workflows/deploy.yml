@@ -28,6 +28,7 @@ jobs:
       - name: Build
         env:
           CI: true
+          VITE_TURNSTILE_SITE_KEY: ${{ vars.VITE_TURNSTILE_SITE_KEY }}
         run: npm run build
       - name: SPA 404 fallback
         run: cp dist/index.html dist/404.html
