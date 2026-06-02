@@ -27,6 +27,21 @@ export default function Contact() {
       />
       <PageHero eyebrow="Contact" title="Let's Get Smarter, together" subtitle="Choose the path that fits your enquiry. Our team will respond within typical business hours." />
 
+      <section className="mx-auto max-w-5xl container-px mt-10">
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div className="rounded-xl border border-border bg-surface p-5">
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Address</h2>
+            <address className="mt-2 not-italic text-sm text-foreground">20, Theophilus Oji Street, Lekki Phase One, Lagos, Nigeria.</address>
+          </div>
+          <div className="rounded-xl border border-border bg-surface p-5">
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Email</h2>
+            <p className="mt-2 text-sm">
+              <a href="mailto:hello@smartsense.africa" className="text-secondary underline underline-offset-4">hello@smartsense.africa</a>
+            </p>
+          </div>
+        </div>
+      </section>
+
       <section className="mx-auto max-w-5xl container-px mt-12">
         <div className="flex flex-wrap gap-2 rounded-xl border border-border bg-surface p-1.5">
           {TABS.map((t) => (
