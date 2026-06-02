@@ -1,6 +1,7 @@
 import { NavLink, Link } from "react-router-dom";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import atomicIcon from "../../assets/atomic-icon.png.asset.json";
 
 const NAV = [
   { to: "/", label: "Home" },
@@ -19,7 +20,7 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between container-px py-4">
         <Link to="/" className="flex items-center gap-2 group" onClick={() => setOpen(false)}>
-          <span className="flex h-9 w-9 items-center justify-center rounded-md bg-accent-gradient text-white font-display font-bold shadow-glow">S</span>
+          <img src={atomicIcon.url} alt="SmartSense Technologies atomic icon" className="h-9 w-9 object-contain" />
           <span className="font-display text-lg font-semibold tracking-tight">
             SmartSense<span className="text-secondary"> Technologies</span>
           </span>

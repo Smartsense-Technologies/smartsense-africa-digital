@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Linkedin, Twitter, Youtube } from "lucide-react";
+import atomicIcon from "../../assets/atomic-icon.png.asset.json";
 
 export function Footer() {
   return (
@@ -7,12 +8,18 @@ export function Footer() {
       <div className="mx-auto max-w-7xl container-px py-14 grid gap-10 md:grid-cols-4">
         <div className="md:col-span-2">
           <div className="flex items-center gap-2">
-            <span className="flex h-9 w-9 items-center justify-center rounded-md bg-accent-gradient text-white font-display font-bold">S</span>
+            <img src={atomicIcon.url} alt="SmartSense Technologies atomic icon" className="h-9 w-9 object-contain" />
             <span className="font-display text-lg font-semibold">SmartSense Technologies</span>
           </div>
           <p className="mt-4 max-w-md text-sm text-primary-foreground/70">
             Intelligent digital experiences for brands, institutions and governments across Africa. Get Smarter.
           </p>
+          <address className="mt-5 not-italic text-sm text-primary-foreground/70 space-y-1">
+            <p>20, Theophilus Oji Street, Lekki Phase One, Lagos, Nigeria.</p>
+            <p>
+              <a href="mailto:hello@smartsense.africa" className="hover:text-primary-foreground">hello@smartsense.africa</a>
+            </p>
+          </address>
           <div className="mt-5 flex items-center gap-3">
             <a href="https://linkedin.com" aria-label="LinkedIn" className="rounded-md p-2 bg-white/5 hover:bg-white/10 transition"><Linkedin className="h-4 w-4" /></a>
             <a href="https://x.com" aria-label="X" className="rounded-md p-2 bg-white/5 hover:bg-white/10 transition"><Twitter className="h-4 w-4" /></a>

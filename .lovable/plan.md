@@ -1,78 +1,36 @@
-## Goal
+# Limited Brand & Contact Update
 
-Connect the four Contact page forms (Request a Demo, Government Partnership, Brand / Agency Campaign, General Contact) to the secure Cloudflare Worker, add a real Cloudflare Turnstile widget, and standardize the submit payload — while keeping the site fully static and secret-free.
+Scope-locked changes only. No changes to forms, Turnstile, Worker endpoint, Brevo, secrets, Supabase, GitHub Actions, env vars, or deployment settings. The Mixed Reality/Flam page is untouched.
 
-Worker endpoint: `https://smartsense-form-handler.smartsensetech.workers.dev/submit`
+## Task 1 — Header logo (atomic icon + text)
+- Add the uploaded atomic icon as a CDN asset (`lovable-assets`) so it isn't committed as a binary.
+- In `src/components/site/Header.tsx`, replace the current "S" gradient square mark with the atomic icon image, keeping the text "SmartSense Technologies" beside it.
+- Constrain icon size (~h-8/h-9) so the header stays compact on desktop and mobile.
+- Keep existing colours, layout, sticky behavior, mobile menu, and the "Request a Demo" button as-is. The icon is already brand-blue and blends with the current palette, so no palette changes.
 
-## 1. Real Turnstile widget (`src/components/site/forms/Turnstile.tsx`)
+## Task 2 — Favicon
+- Copy the atomic icon into `public/` (e.g. `public/favicon.png`).
+- Add `<link rel="icon" type="image/png" href="/favicon.png" />` (plus apple-touch-icon) to `index.html`. No other head changes.
 
-Replace the current placeholder with a working widget:
-- Inject the Cloudflare Turnstile script (`https://challenges.cloudflare.com/turnstile/v0/api.js`) once.
-- Render the widget explicitly using `VITE_TURNSTILE_SITE_KEY`.
-- Expose the token to the parent via an `onToken(token)` callback, and a `reset()` method via `forwardRef`/`useImperativeHandle` so forms can reload the widget after each submission attempt.
-- If `VITE_TURNSTILE_SITE_KEY` is unset, keep a visible dev placeholder so local builds don't break.
-- No secret key anywhere.
+## Task 3 — Footer mark
+- The footer currently uses the small "S" gradient square + text. Replace that square with the atomic icon + "SmartSense Technologies" text for consistency with the header. Footer stays on the existing dark primary background, unchanged otherwise.
 
-## 2. Shared submit hook (`src/components/site/forms/useFormSubmit.ts`)
+## Task 4 — Address & contact details
+Use exactly: **20, Theophilus Oji Street, Lekki Phase One, Lagos, Nigeria.** and keep email **hello@smartsense.africa**.
+The address/email don't currently appear, so they will be added where appropriate:
+- **Footer** (`Footer.tsx`): add a small contact block with the address and a `mailto:hello@smartsense.africa` link.
+- **Contact page** (`Contact.tsx`): add a compact contact-details line/block (address + email) alongside the existing tabbed forms. Forms untouched.
+- **Privacy Policy** (`PrivacyPolicy.tsx`): update the "Contact" section to reference `hello@smartsense.africa` and include the physical address (replacing the `privacy@smartsense.africa (placeholder)` text).
 
-Rework into a generic JSON POST helper:
-- `submit(payload)` does `fetch(WORKER_URL, { method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify(payload) })`.
-- On `success: true` → set `status = "success"` (no localStorage).
-- On failure/non-2xx/`success:false` → set `status = "error"` with a friendly message.
-- Expose `status` (`idle | loading | success | error`), `error`, and a `reset()`.
-- Remove the `/thank-you` navigation in favor of an inline success state (form is reset and a success message shown). Keep `ThankYou.tsx` route untouched.
+## Task 5 — QA
+- Verify build succeeds and every route renders.
+- Check header on desktop and mobile viewports (icon + text compact, menu works).
+- Confirm favicon resolves to the atomic icon.
+- Confirm the address/email appear consistently in footer, Contact, and Privacy.
+- Confirm no "Smartcare" references exist (search shows none today; re-verify).
+- Confirm forms still render Turnstile and submission logic is unchanged.
 
-## 3. Standard payload shape
-
-Every form builds this exact JSON body:
-
-```text
-{
-  formType, firstName, lastName, email, phone,
-  organization, role, sector, message,
-  marketingOptIn, sourcePage, turnstileToken
-}
-```
-
-- `sourcePage`: `"https://smartsense.africa/contact"`
-- `formType` per form: `demo_request`, `government_partnership`, `brand_agency_campaign`, `general_contact`.
-- Form-specific extras that don't map to the schema (e.g. Demo Interest, Area of Interest, campaign channels/type, enquiry type, meeting format) get appended into the `message` field as readable labelled lines, so no information is lost.
-
-## 4. Shared form fields (`src/components/site/forms/FormFields.tsx`)
-
-- Add a reusable `ConsentCheckbox` block with the required consent text plus a `<Link to="/privacy-policy">Privacy Policy</Link>` next to it.
-- Add a `MarketingOptInCheckbox` with the marketing text.
-- Add a `SuccessMessage` and shared validation helpers (required-field check + email regex).
-- Keep existing `Field`, `TextInput`, `TextArea`, `Select`.
-
-## 5. Update each form
-
-For all four forms (`DemoForm`, `GovernmentForm`, `BrandForm`, `GeneralForm`):
-- Replace single "Full Name" / "Contact Person" with **First Name** + **Last Name** (both required).
-- Required: firstName, lastName, email, organization (optional only in General Contact), message, consent checkbox, Turnstile token.
-- Optional: phone, role, sector, marketingOptIn.
-- Add the Turnstile widget (with ref) and the marketing opt-in checkbox.
-- Client-side validation before submit: required fields filled + valid email; if Turnstile token missing, block and show **"Please complete the verification before submitting."**
-- Disable submit + show loading label while `status === "loading"`.
-- On success: show success message and reset the form fields and Turnstile widget.
-- On error: show friendly error text; reset/reload Turnstile so the user can retry.
-
-Per-form field mapping to the schema:
-- **Demo** → organization (required), role, sector; Demo Interest folded into message.
-- **Government** → organization = institution (required), role, sector = Area of Interest; meeting format folded into message.
-- **Brand/Agency** → organization = brand/agency (required), role = contact role; campaign type, channels, timeline, budget, audience folded into message.
-- **General** → organization optional; enquiry type folded into message.
-
-## 6. Environment / security
-
-- Use `VITE_TURNSTILE_SITE_KEY` (frontend-safe) only.
-- No Supabase, no databases, no backend routes, no secret keys, no Brevo key, no Turnstile secret — nothing secret added to the repo or code.
-- Site stays static / frontend-only.
-
-## 7. Deployment
-
-Changes sync to the connected GitHub repository automatically, triggering the existing GitHub Actions Pages workflow to rebuild and deploy `dist` to `smartsense.africa`. You'll need to ensure `VITE_TURNSTILE_SITE_KEY` is available to the GitHub Actions build (as a repo variable/secret used at build time) for the live widget to render with your real site key.
-
-## Out of scope
-
-No content redesign, no file uploads, no direct Brevo calls, no new backend. `ThankYou` page left as-is (forms now use inline success instead of redirecting).
+## Technical notes
+- Files touched: `index.html`, `src/components/site/Header.tsx`, `src/components/site/Footer.tsx`, `src/pages/Contact.tsx`, `src/pages/PrivacyPolicy.tsx`, plus new asset pointer + `public/favicon.png`.
+- No edits to any file under `src/components/site/forms/`, `vite.config.ts`, `.github/workflows/`, `public/CNAME`, or `public/.nojekyll`.
+- After implementation, changes sync to the connected GitHub repo for the existing Actions deploy.

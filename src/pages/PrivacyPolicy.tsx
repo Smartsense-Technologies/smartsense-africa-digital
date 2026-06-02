@@ -56,7 +56,8 @@ export default function PrivacyPolicy() {
         </Section>
 
         <Section title="9. Contact">
-          <p>For privacy enquiries, contact us via the <a className="text-secondary underline underline-offset-4" href="/contact">Contact page</a> or at privacy@smartsense.africa (placeholder).</p>
+          <p>For privacy enquiries, contact us via the <a className="text-secondary underline underline-offset-4" href="/contact">Contact page</a> or at <a className="text-secondary underline underline-offset-4" href="mailto:hello@smartsense.africa">hello@smartsense.africa</a>.</p>
+          <address className="not-italic">SmartSense Technologies, 20, Theophilus Oji Street, Lekki Phase One, Lagos, Nigeria.</address>
         </Section>
       </article>
     </>
