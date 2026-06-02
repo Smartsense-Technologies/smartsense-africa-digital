@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { Linkedin, Twitter, Youtube } from "lucide-react";
-import atomicIcon from "../../assets/atomic-icon.png.asset.json";
 
 export function Footer() {
   return (
@@ -8,7 +7,7 @@ export function Footer() {
       <div className="mx-auto max-w-7xl container-px py-14 grid gap-10 md:grid-cols-4">
         <div className="md:col-span-2">
           <div className="flex items-center gap-2">
-            <img src={atomicIcon.url} alt="SmartSense Technologies atomic icon" className="h-9 w-9 object-contain" />
+            <img src="/smartsense-atomic-icon.png" alt="SmartSense Technologies atomic icon" className="h-9 w-9 object-contain" />
             <span className="font-display text-lg font-semibold">SmartSense Technologies</span>
           </div>
           <p className="mt-4 max-w-md text-sm text-primary-foreground/70">
