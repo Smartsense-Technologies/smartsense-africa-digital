@@ -95,6 +95,21 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="mx-auto max-w-7xl container-px mt-8">
+        <div className="rounded-2xl border border-border bg-card p-8 md:p-10 shadow-elegant flex flex-col md:flex-row md:items-center gap-6 md:justify-between">
+          <div className="max-w-2xl">
+            <span className="inline-flex items-center rounded-full bg-secondary/10 px-3 py-1 text-xs font-semibold text-secondary uppercase tracking-wider">Engagement</span>
+            <h2 className="mt-3 text-2xl md:text-3xl font-bold">Scan & Win</h2>
+            <p className="mt-3 text-muted-foreground">
+              Connect QR-enabled campaigns with verified mobile participation, rewards and promotional engagement.
+            </p>
+          </div>
+          <Link to="/scan-and-win" className="inline-flex items-center gap-2 self-start rounded-md bg-accent-gradient px-6 py-3 text-sm font-semibold text-accent-foreground shadow-glow hover:opacity-95">
+            Explore Scan & Win <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+      </section>
+
       <section className="mx-auto max-w-7xl container-px mt-24">
         <SectionHeading eyebrow="Core Pillars" title="Four pillars of intelligent engagement" />
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
