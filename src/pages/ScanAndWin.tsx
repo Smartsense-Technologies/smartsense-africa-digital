@@ -27,10 +27,10 @@ import { PageMeta } from "../lib/PageMeta";
 
 const STEPS = [
   { icon: QrCode, t: "Scan the Campaign QR Code", b: "Participants scan a QR code from packaging, print, outdoor media, event material, cards, or another campaign touchpoint." },
+  { icon: ClipboardCheck, t: "Complete the Campaign Action", b: "The participant completes the relevant activity, such as answering a question, interacting with content, or submitting an entry." },
   { icon: Smartphone, t: "Enter a Mobile Number", b: "The participant provides a valid mobile number for verification and campaign participation." },
   { icon: MessageSquare, t: "Receive a Verification Code by SMS", b: "A time-limited verification code is sent to the participant's mobile number." },
   { icon: ShieldCheck, t: "Verify the Mobile Number", b: "The participant enters the verification code to confirm access to the number." },
-  { icon: ClipboardCheck, t: "Complete the Campaign Action", b: "The participant completes the relevant activity, such as answering a question, interacting with content, or submitting an entry." },
   { icon: Gift, t: "Receive Entry or Reward Confirmation", b: "The participant receives confirmation of a successful entry or any applicable reward, subject to the campaign terms." },
 ];
 
