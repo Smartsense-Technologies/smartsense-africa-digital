@@ -33,6 +33,7 @@ export function Footer() {
             <li><Link to="/solutions/mixed-reality" className="hover:text-primary-foreground">Mixed Reality Experiences</Link></li>
             <li><Link to="/government" className="hover:text-primary-foreground">Government & Public Sector</Link></li>
             <li><Link to="/innovation-portfolio" className="hover:text-primary-foreground">Innovation Portfolio</Link></li>
+            <li><Link to="/scan-and-win" className="hover:text-primary-foreground">Scan & Win</Link></li>
             <li><Link to="/industries" className="hover:text-primary-foreground">Industries</Link></li>
           </ul>
         </div>
