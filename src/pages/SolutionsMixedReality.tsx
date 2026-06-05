@@ -1,4 +1,5 @@
-import { QrCode, Smartphone, Sparkles, Send, BarChart3, CheckCircle2 } from "lucide-react";
+import { QrCode, Smartphone, Sparkles, Send, BarChart3, CheckCircle2, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import { PageHero } from "../components/site/PageHero";
 import { CTASection } from "../components/site/CTASection";
 import { SectionHeading } from "../components/site/SectionHeading";
@@ -126,6 +127,21 @@ export default function SolutionsMixedReality() {
               <div className="absolute top-4 right-4 rounded-full bg-white/10 backdrop-blur-md border border-white/20 px-3 py-1 text-[10px] uppercase tracking-wider text-white">Preview</div>
             </div>
           ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl container-px mt-24">
+        <div className="rounded-2xl border border-border bg-card p-8 md:p-10 shadow-elegant flex flex-col md:flex-row md:items-center gap-6 md:justify-between">
+          <div className="max-w-2xl">
+            <span className="inline-flex items-center rounded-full bg-secondary/10 px-3 py-1 text-xs font-semibold text-secondary uppercase tracking-wider">Promotions</span>
+            <h2 className="mt-3 text-2xl md:text-3xl font-bold">Scan & Win Campaigns</h2>
+            <p className="mt-3 text-muted-foreground">
+              Connect mixed reality and QR-enabled touchpoints with verified mobile participation and promotional rewards.
+            </p>
+          </div>
+          <Link to="/scan-and-win" className="inline-flex items-center gap-2 self-start rounded-md bg-accent-gradient px-6 py-3 text-sm font-semibold text-accent-foreground shadow-glow hover:opacity-95">
+            Explore Scan & Win <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
       </section>
 
