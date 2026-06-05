@@ -24,7 +24,6 @@ import { PageHero } from "../components/site/PageHero";
 import { SectionHeading } from "../components/site/SectionHeading";
 import { CTASection } from "../components/site/CTASection";
 import { PageMeta } from "../lib/PageMeta";
-import atomicIcon from "/smartsense-atomic-icon.png";
 
 const STEPS = [
   { icon: QrCode, t: "Scan the Campaign QR Code", b: "Participants scan a QR code from packaging, print, outdoor media, event material, cards, or another campaign touchpoint." },
@@ -68,7 +67,7 @@ export default function ScanAndWin() {
         <div className="absolute -top-40 -right-40 h-96 w-96 rounded-full bg-cyan/20 blur-3xl" />
         <div className="relative mx-auto max-w-7xl container-px py-20 md:py-28">
           <div className="flex items-center gap-3">
-            <img src={atomicIcon} alt="SmartSense Technologies atomic icon" className="h-10 w-10 object-contain" />
+            <img src="/smartsense-atomic-icon.png" alt="SmartSense Technologies atomic icon" className="h-10 w-10 object-contain" />
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-cyan">Scan &amp; Win</p>
           </div>
           <h1 className="mt-5 text-4xl md:text-5xl lg:text-6xl font-bold leading-tight max-w-4xl">
