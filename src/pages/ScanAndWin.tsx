@@ -139,7 +139,7 @@ export default function ScanAndWin() {
         <div className="overflow-hidden rounded-2xl border border-border bg-soft p-8 md:p-12 shadow-elegant">
           <SectionHeading eyebrow="Mixed reality" title="Connecting Physical Touchpoints to Mobile Engagement" />
           <p className="mt-4 max-w-3xl text-base text-muted-foreground leading-relaxed">
-            Scan &amp; Win can be deployed alongside Flam-powered mixed reality experiences to turn packaging, cards, print, outdoor media and event materials into interactive campaign journeys. SmartSense works with technology partners to adapt these experiences for African markets and campaign requirements.
+            Scan &amp; Win is deployed alongside Flam-powered mixed reality experiences to turn packaging, cards, print, outdoor media and event materials into interactive campaign journeys. SmartSense works with technology partners to adapt these experiences for African markets and campaign requirements.
           </p>
           <Link to="/solutions/mixed-reality" className="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-secondary hover:text-primary">
             Explore Mixed Reality <ArrowRight className="h-4 w-4" />
