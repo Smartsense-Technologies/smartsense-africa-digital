@@ -145,6 +145,21 @@ export default function SolutionsMixedReality() {
         </div>
       </section>
 
+      <section className="mx-auto max-w-7xl container-px mt-8">
+        <div className="rounded-2xl border border-border bg-card p-8 md:p-10 shadow-elegant flex flex-col md:flex-row md:items-center gap-6 md:justify-between">
+          <div className="max-w-2xl">
+            <span className="inline-flex items-center rounded-full bg-secondary/10 px-3 py-1 text-xs font-semibold text-secondary uppercase tracking-wider">AI-Powered</span>
+            <h2 className="mt-3 text-2xl md:text-3xl font-bold">AI Visual Agents</h2>
+            <p className="mt-3 text-muted-foreground">
+              Combine visual presence, conversational AI and curated knowledge bases to create more engaging digital interactions.
+            </p>
+          </div>
+          <Link to="/visual-agent" className="inline-flex items-center gap-2 self-start rounded-md bg-accent-gradient px-6 py-3 text-sm font-semibold text-accent-foreground shadow-glow hover:opacity-95">
+            Explore Visual Agents <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+      </section>
+
       <CTASection title="Request a Mixed Reality Demo" subtitle="See how Flam-powered experiences can transform your next campaign or public communication." primaryLabel="Request a Demo" />
       <div className="pb-8" />
     </>

@@ -43,19 +43,23 @@ export default function PrivacyPolicy() {
           <p>We may use privacy-aware website analytics (placeholder) to understand aggregate traffic patterns and improve site performance. Analytics data is used in aggregate and does not aim to personally identify visitors.</p>
         </Section>
 
-        <Section title="6. Data retention">
+        <Section title="6. Third-party interactive experience tools">
+          <p>Our website may include third-party interactive experience tools provided by technology partners, including Flam-powered visual agent or mixed reality experiences. These tools may request browser permissions such as microphone or camera access where needed for the interaction. Permission requests are controlled by the user's browser and can be accepted or declined by the user.</p>
+        </Section>
+
+        <Section title="7. Data retention">
           <p>We retain enquiry information only for as long as necessary to respond to your request and maintain a reasonable record of business communications, in line with applicable laws.</p>
         </Section>
 
-        <Section title="7. Your rights">
+        <Section title="8. Your rights">
           <p>You may request access, correction or deletion of personal information we hold about you, subject to applicable law. To make such a request, contact us using the details below.</p>
         </Section>
 
-        <Section title="8. Important notice">
+        <Section title="9. Important notice">
           <p>Please do <span className="font-semibold text-foreground">not</span> submit sensitive health, financial, personal identity or confidential government information through public website forms. For sensitive matters, contact us to arrange a secure channel.</p>
         </Section>
 
-        <Section title="9. Contact">
+        <Section title="10. Contact">
           <p>For privacy enquiries, contact us via the <a className="text-secondary underline underline-offset-4" href="/contact">Contact page</a> or at <a className="text-secondary underline underline-offset-4" href="mailto:hello@smartsense.africa">hello@smartsense.africa</a>.</p>
           <address className="not-italic">SmartSense Technologies, 20, Theophilus Oji Street, Lekki Phase One, Lagos, Nigeria.</address>
         </Section>
