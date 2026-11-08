@@ -12,6 +12,7 @@ import Industries from "./pages/Industries";
 import Contact from "./pages/Contact";
 import ScanAndWin from "./pages/ScanAndWin";
 import VisualAgent from "./pages/VisualAgent";
+import DemoRedirect from "./pages/demos/DemoRedirect";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import ThankYou from "./pages/ThankYou";
 import NotFound from "./pages/NotFound";
@@ -41,6 +42,7 @@ export default function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/scan-and-win" element={<ScanAndWin />} />
           <Route path="/visual-agent" element={<VisualAgent />} />
+          <Route path="/demo/:slug" element={<DemoRedirect />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/thank-you" element={<ThankYou />} />
           <Route path="*" element={<NotFound />} />
