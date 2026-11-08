@@ -6,6 +6,9 @@ export type DemoConfig = {
   supporting: string;
   explanation: string;
   destinationUrl: string;
+  // SmartSense address encoded in the desktop QR code (never the destination).
+  publicUrl: string;
+  desktopIntro: string;
 };
 
 export const DEMOS: Record<string, DemoConfig> = {
@@ -18,5 +21,8 @@ export const DEMOS: Record<string, DemoConfig> = {
       "This interactive preview has been prepared specifically for the Enugu State Government to demonstrate how Airboard technology can transform physical and digital communication into an interactive experience.",
     // Destination for /demo/enugu-state-airboard
     destinationUrl: "https://c.flamapp.com/e?o=b5e5y6",
+    publicUrl: "https://smartsense.africa/demo/enugu-state-airboard",
+    desktopIntro:
+      "This interactive experience has been prepared specifically for the Enugu State Government.",
   },
 };
