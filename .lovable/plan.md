@@ -1,59 +1,34 @@
-## AI Visual Agents Page
+## Enugu State Airboard demo page (unlisted)
 
-Create a dedicated `/visual-agent` page positioning Flam-powered AI Visual Agents, deployed by SmartSense, with the live Flam demo script loaded only on that route. No backend, no infrastructure, no design-system changes.
+Add one private demo page at `/demo/enugu-state-airboard`. It uses the existing SmartSense look, names only SmartSense Technologies and MSR as presenters, and opens the Airboard experience after a short pause. No other page, form or deployment setting changes.
 
-### 1. New page: `src/pages/VisualAgent.tsx`
+### 1. Reusable demo config — `src/pages/demos/demoConfig.ts`
+- One clearly labelled entry for `enugu-state-airboard`: recipient ("Enugu State Government"), experience name ("Airboard Experience"), short explanation, and `destinationUrl: "https://c.flamapp.com/e?o=b5e5y6"`.
+- To change where the link goes later, edit only this one value. The public SmartSense link stays the same.
+- Future pages like `/demo/mtn-airboard` only need a new entry here. No others are added now.
 
-Built with existing components (`PageMeta`, `SectionHeading`, `CTASection`) and the same hero pattern used on Scan & Win (atomic icon + `bg-hero` + grid pattern), reusing existing semantic tokens. Flam-green accents used sparingly via a small inline accent only where relevant; no new global tokens.
-
-Sections, using the exact copy provided:
-- **Hero** — headline, subheadline, supporting copy. Primary CTA "Try the Visual Agent" anchors to `#try` on the page; secondary CTA "Request a Visual Agent Demo" links to `/contact`.
-- **What Is an AI Visual Agent?** — three copy blocks including the knowledge-base limitation note.
-- **How It Works** — five-step numbered card flow (same card style as Scan & Win steps).
-- **Try the Visual Agent** (`id="try"`) — intro copy, a "How to interact" instruction box, microphone/camera permission note, and demo-limitation text. This section hosts the Flam script (see section 2).
-- **What Visual Agents Can Do** — six cards.
-- **Potential Use Cases** — ten concise cards.
-- **What We Need to Build a Visual Agent** — two columns (Avatar Identity Assets / Knowledge Base Materials) plus the quality-of-knowledge-base copy.
-- **Responsible Use and Permissions** — three copy blocks.
-- **SmartSense and Flam Technologies** — partnership copy clarifying SmartSense does not own Flam tech.
-- **Contact details** — email `hello@smartsense.africa` and the Lagos address (same card pattern as Scan & Win).
-- **CTA section** — final CTA via `CTASection` linking to `/contact`.
-
-SEO via `PageMeta`: title "AI Visual Agents | SmartSense Technologies" and the provided meta description.
-
-### 2. Flam script — page-scoped only
-
-Inside `VisualAgent.tsx`, a `useEffect` injects the script tag on mount and removes it on unmount, so it loads only when `/visual-agent` is open and never duplicates:
-
-```text
-on mount:
-  create <script src="https://agents.flamapp.ai/v1/loader.js"
-                 data-project-id="6a1d90356cb5f6704f463457"
-                 data-client-key="ak_266b05d48e3bf630" async>
-  guard against duplicates (skip if a script with same src already present)
-  append to document.body
-on unmount:
-  remove that script node
-```
-
-This keeps it off the global layout, off every other route, and specifically off `/contact` and `/scan-and-win`. The keys here are public client-side loader identifiers supplied in the request (not secrets), placed directly in code as instructed. Layout reserves bottom spacing so the widget does not cover CTAs.
+### 2. Page — `src/pages/demos/DemoRedirect.tsx`
+- Reads the client and experience from the address and looks it up in the config. If there is no match, it shows the existing Not Found page.
+- `PageMeta` with `robots="noindex, nofollow"` and a neutral title ("Enugu State Government — Experience Preview | SmartSense Technologies").
+- Compact, full-height navy hero layout (existing `bg-hero`, grid pattern, cyan eyebrow), sized so everything fits on a phone screen without scrolling:
+  - Eyebrow: EXPERIENCE PREVIEW
+  - Heading: Enugu State Government / Airboard Experience
+  - Supporting line and short explanation (exact copy from the request)
+  - Small "SmartSense Technologies + MSR" presenter line
+  - Status: small spinner + "Opening your interactive experience…"
+  - "Having trouble opening the experience?" + **Launch Experience** button
+  - Small, muted mobile/camera note
+- After 1.8 seconds it calls `window.location.replace(destinationUrl)`. The timer is cleared if the visitor leaves the page first. The button sends the visitor to the same place.
+- The destination address and provider name are never shown on screen, and there is no "powered by" text.
 
 ### 3. Routing — `src/App.tsx`
+- Add one route: `/demo/:slug` → `DemoRedirect`. Existing routes stay as they are.
 
-Add `import VisualAgent` and `<Route path="/visual-agent" element={<VisualAgent />} />`. GitHub Pages SPA routing already works for existing routes (e.g. `/scan-and-win`), so no extra config needed.
+### Not touched
+Header, footer, homepage, product pages, Contact, forms, Turnstile, Worker, Brevo, environment variables, GitHub Actions, CNAME/DNS. No sitemap entry and no links to the page anywhere. No new dependencies.
 
-### 4. Supporting cards
-
-- **Homepage** (`src/pages/Home.tsx`): add one "AI Visual Agents" card with the provided copy and "Explore Visual Agents" → `/visual-agent`, placed next to the existing Scan & Win card block.
-- **Mixed Reality** (`src/pages/SolutionsMixedReality.tsx`): add one concise "AI Visual Agents" reference card (same card style as the existing Scan & Win card there) → `/visual-agent`. No other changes to that page.
-- **Footer** (`src/components/site/Footer.tsx`): add an "AI Visual Agents" link under Explore, alongside Scan & Win. No main-nav change to avoid header crowding.
-
-### 5. Privacy Policy — `src/pages/PrivacyPolicy.tsx`
-
-Add one new section with the suggested wording about third-party interactive experience tools (including Flam) and browser permission requests. Existing sections unchanged.
-
-### What is NOT touched
-Cloudflare Worker, contact form logic, Turnstile, Brevo, GitHub Actions workflow, env vars, domain/deploy settings, overall design. No Supabase, no database, no backend routes, no secrets. Script is not added sitewide, nor to `/contact` or `/scan-and-win`.
-
-### QA before completion
-Verify `/visual-agent` renders, the Flam script is present only there (absent on `/`, `/contact`, `/scan-and-win`), no duplicate script on navigation, existing routes and forms unaffected, and responsive layout on desktop and mobile.
+### Checks before completion
+- In the preview, open `/demo/enugu-state-airboard` at desktop and phone sizes and confirm the content and the noindex tag.
+- Confirm the automatic redirect and the button both go to the destination.
+- Search the code to confirm nothing links to `/demo/`.
+- Confirm the home page and `/contact` still work.
