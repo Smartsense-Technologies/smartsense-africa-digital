@@ -9,6 +9,8 @@ export type DemoConfig = {
   // SmartSense address encoded in the desktop QR code (never the destination).
   publicUrl: string;
   desktopIntro: string;
+  // Optional search/preview description; Enugu keeps its original wording.
+  metaDescription?: string;
 };
 
 export const DEMOS: Record<string, DemoConfig> = {
@@ -24,5 +26,18 @@ export const DEMOS: Record<string, DemoConfig> = {
     publicUrl: "https://smartsense.africa/demo/enugu-state-airboard",
     desktopIntro:
       "This interactive experience has been prepared specifically for the Enugu State Government.",
+  },
+  "nigcomsat-airboard": {
+    recipient: "NIGCOMSAT",
+    experience: "Airboard Experience",
+    supporting: "Prepared for demonstration purposes by SmartSense Technologies.",
+    explanation:
+      "This interactive experience has been prepared specifically for NIGCOMSAT by SmartSense Technologies.",
+    // Destination for /demo/nigcomsat-airboard
+    destinationUrl: "https://c.flamapp.com/e?o=p4geuc",
+    publicUrl: "https://smartsense.africa/demo/nigcomsat-airboard",
+    desktopIntro:
+      "This interactive experience has been prepared specifically for NIGCOMSAT by SmartSense Technologies.",
+    metaDescription: "An experience preview prepared specifically for NIGCOMSAT by SmartSense Technologies.",
   },
 };

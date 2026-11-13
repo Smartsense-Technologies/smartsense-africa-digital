@@ -28,7 +28,10 @@ export default function DemoRedirect() {
     <>
       <PageMeta
         title={`${demo.recipient} — Experience Preview | SmartSense Technologies`}
-        description={`An experience preview prepared for the ${demo.recipient} by SmartSense Technologies in collaboration with MSR.`}
+        description={
+          demo.metaDescription ??
+          `An experience preview prepared for the ${demo.recipient} by SmartSense Technologies in collaboration with MSR.`
+        }
         robots="noindex, nofollow"
       />
       <section className="relative overflow-hidden bg-hero text-white">
