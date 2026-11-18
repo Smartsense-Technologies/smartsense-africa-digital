@@ -11,6 +11,8 @@ export type DemoConfig = {
   desktopIntro: string;
   // Optional search/preview description; Enugu keeps its original wording.
   metaDescription?: string;
+  // Optional eyebrow label; defaults to "Experience Preview".
+  eyebrow?: string;
 };
 
 export const DEMOS: Record<string, DemoConfig> = {
@@ -39,5 +41,17 @@ export const DEMOS: Record<string, DemoConfig> = {
     desktopIntro:
       "This interactive experience has been prepared specifically for NIGCOMSAT by SmartSense Technologies.",
     metaDescription: "An experience preview prepared specifically for NIGCOMSAT by SmartSense Technologies.",
+  },
+  "pcc-airboard": {
+    eyebrow: "Interactive Experience",
+    recipient: "PCC",
+    experience: "Airboard Experience",
+    supporting: "Presented by SmartSense Technologies.",
+    explanation: "An interactive Airboard experience presented by SmartSense Technologies.",
+    // Destination for /demo/pcc-airboard
+    destinationUrl: "https://c.flamapp.com/e?o=m8o3zj",
+    publicUrl: "https://smartsense.africa/demo/pcc-airboard",
+    desktopIntro: "An interactive Airboard experience presented by SmartSense Technologies.",
+    metaDescription: "PCC Airboard interactive experience presented by SmartSense Technologies.",
   },
 };

@@ -38,7 +38,7 @@ export default function DemoRedirect() {
         <div className="absolute inset-0 grid-pattern opacity-40" />
         {phone ? (
           <div className="relative mx-auto flex min-h-[calc(100svh-4rem)] max-w-3xl flex-col justify-center container-px py-10">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan">Experience Preview</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan">{demo.eyebrow ?? "Experience Preview"}</p>
             <h1 className="mt-3 text-3xl font-bold leading-tight sm:text-4xl">
               {demo.recipient}
               <br />
@@ -65,7 +65,7 @@ export default function DemoRedirect() {
           </div>
         ) : (
           <div className="relative mx-auto flex min-h-[calc(100svh-4rem)] max-w-5xl flex-col items-center justify-center container-px py-12 text-center md:py-16">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan">Experience Preview</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan">{demo.eyebrow ?? "Experience Preview"}</p>
             <h1 className="mt-3 text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
               {demo.recipient}
               <br />
