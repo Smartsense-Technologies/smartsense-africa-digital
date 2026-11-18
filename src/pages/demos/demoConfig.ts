@@ -13,6 +13,11 @@ export type DemoConfig = {
   metaDescription?: string;
   // Optional eyebrow label; defaults to "Experience Preview".
   eyebrow?: string;
+  // Optional attribution block shown above an optional portrait.
+  attribution?: { primary: string; secondary: string };
+  portrait?: { src: string; alt: string };
+  // Optional phone redirect delay; defaults to the shared value.
+  redirectDelayMs?: number;
 };
 
 export const DEMOS: Record<string, DemoConfig> = {
@@ -53,5 +58,8 @@ export const DEMOS: Record<string, DemoConfig> = {
     publicUrl: "https://smartsense.africa/demo/pcc-airboard",
     desktopIntro: "An interactive Airboard experience presented by SmartSense Technologies.",
     metaDescription: "PCC Airboard interactive experience presented by SmartSense Technologies.",
+    attribution: { primary: "PCC New Media Directorate", secondary: "Powered by Prince Shehu Ali" },
+    portrait: { src: "/assets/images/prince-shehu-ali.jpeg", alt: "Prince Shehu Ali, PCC New Media Directorate" },
+    redirectDelayMs: 3500,
   },
 };
