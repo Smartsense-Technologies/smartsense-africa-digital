@@ -53,7 +53,7 @@ export default function DemoRedirect() {
       <section className="relative overflow-hidden bg-hero text-white">
         <div className="absolute inset-0 grid-pattern opacity-40" />
         {phone ? (
-          <div className="relative mx-auto flex min-h-[calc(100svh-4rem)] max-w-3xl flex-col justify-center container-px py-10">
+          <div className="relative mx-auto flex min-h-[calc(100svh-4rem)] max-w-3xl flex-col justify-center container-px py-6">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan">{demo.eyebrow ?? "Experience Preview"}</p>
             <h1 className="mt-3 text-3xl font-bold leading-tight sm:text-4xl">
               {demo.recipient}
@@ -61,10 +61,13 @@ export default function DemoRedirect() {
               {demo.experience}
             </h1>
             {demo.attribution ? (
-              <>
-                {attributionBlock}
-                {portraitImg("mt-4 w-full max-w-[280px]")}
-              </>
+              <div className="mt-5 flex items-center gap-4">
+                {portraitImg("w-28 shrink-0 sm:w-32")}
+                <div>
+                  <p className="text-base font-semibold leading-tight text-white sm:text-lg">{demo.attribution.primary}</p>
+                  <p className="mt-1 text-sm font-semibold leading-tight text-white/90 sm:text-base">{demo.attribution.secondary}</p>
+                </div>
+              </div>
             ) : (
               <p className="mt-4 text-base font-medium text-white/90">{demo.supporting}</p>
             )}
