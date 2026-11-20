@@ -43,7 +43,7 @@ export default function DemoRedirect() {
   return (
     <>
       <PageMeta
-        title={`${demo.recipient} — Experience Preview | SmartSense Technologies`}
+        title={demo.pageTitle ?? `${demo.recipient} — Experience Preview | SmartSense Technologies`}
         description={
           demo.metaDescription ??
           `An experience preview prepared for the ${demo.recipient} by SmartSense Technologies in collaboration with MSR.`
@@ -56,9 +56,7 @@ export default function DemoRedirect() {
           <div className="relative mx-auto flex min-h-[calc(100svh-4rem)] max-w-3xl flex-col justify-center container-px py-6">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan">{demo.eyebrow ?? "Experience Preview"}</p>
             <h1 className="mt-3 text-3xl font-bold leading-tight sm:text-4xl">
-              {demo.recipient}
-              <br />
-              {demo.experience}
+              {demo.heading ?? (<>{demo.recipient}<br />{demo.experience}</>)}
             </h1>
             {demo.attribution ? (
               <div className="mt-5 flex items-center gap-4">
@@ -74,7 +72,7 @@ export default function DemoRedirect() {
             <div className={demo.attribution ? "mt-5 rounded-xl border border-white/15 bg-white/5 p-5 backdrop-blur-sm" : "mt-8 rounded-xl border border-white/15 bg-white/5 p-5 backdrop-blur-sm"}>
               <div className="flex items-center gap-3" role="status" aria-live="polite">
                 <span className="h-5 w-5 shrink-0 animate-spin rounded-full border-2 border-white/25 border-t-cyan" />
-                <span className="text-sm">Opening your interactive experience…</span>
+                <span className="text-sm">{demo.launchingText ?? "Opening your interactive experience…"}</span>
               </div>
               <p className="mt-5 text-sm text-white/70">Having trouble opening the experience?</p>
               <button
@@ -82,7 +80,7 @@ export default function DemoRedirect() {
                 onClick={launch}
                 className="mt-3 inline-flex w-full items-center justify-center rounded-md bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90"
               >
-                Launch Experience
+                {demo.launchLabel ?? "Launch Experience"}
               </button>
             </div>
             <p className="mt-5 text-xs text-white/50">
@@ -120,13 +118,11 @@ export default function DemoRedirect() {
           <div className="relative mx-auto flex min-h-[calc(100svh-4rem)] max-w-5xl flex-col items-center justify-center container-px py-12 text-center md:py-16">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan">{demo.eyebrow ?? "Experience Preview"}</p>
             <h1 className="mt-3 text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
-              {demo.recipient}
-              <br />
-              {demo.experience}
+              {demo.heading ?? (<>{demo.recipient}<br />{demo.experience}</>)}
             </h1>
             <p className="mt-4 max-w-2xl text-base text-white/80 md:text-lg">{demo.desktopIntro}</p>
             <p className="mt-8 text-lg font-semibold md:text-xl">
-              Scan with your mobile phone to launch the experience
+              {demo.scanPrompt ?? "Scan with your mobile phone to launch the experience"}
             </p>
             <div className="mt-6 rounded-2xl bg-white p-5 shadow-2xl ring-1 ring-white/20">
               <QRCodeSVG
@@ -142,7 +138,7 @@ export default function DemoRedirect() {
             </div>
             <p className="mt-5 text-sm text-white/70">Open your phone camera and scan the QR code to continue.</p>
             <p className="mt-8 text-xs font-semibold uppercase tracking-[0.15em] text-white/60">
-              {demo.supporting}
+              {demo.tagline ?? demo.supporting}
             </p>
           </div>
         )}

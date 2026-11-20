@@ -18,6 +18,13 @@ export type DemoConfig = {
   portrait?: { src: string; alt: string };
   // Optional phone redirect delay; defaults to the shared value.
   redirectDelayMs?: number;
+  // Optional overrides for generic (non-client) demos.
+  heading?: string;
+  pageTitle?: string;
+  launchingText?: string;
+  launchLabel?: string;
+  scanPrompt?: string;
+  tagline?: string;
 };
 
 export const DEMOS: Record<string, DemoConfig> = {
@@ -61,5 +68,25 @@ export const DEMOS: Record<string, DemoConfig> = {
     attribution: { primary: "PCC New Media Directorate", secondary: "Powered by Prince Shehu Ali" },
     portrait: { src: "/assets/images/prince-shehu-ali.jpeg", alt: "Prince Shehu Ali, PCC New Media Directorate" },
     redirectDelayMs: 3500,
+  },
+  "business-scan-and-win": {
+    eyebrow: "Interactive Business Demo",
+    heading: "Experience Business Scan & Win",
+    pageTitle: "Business Scan & Win Demo | SmartSense Technologies",
+    recipient: "Business Scan & Win",
+    experience: "",
+    supporting: "See how businesses can turn a simple scan into an interactive customer experience.",
+    explanation: "",
+    // Destination for /demo/business-scan-and-win
+    destinationUrl: "https://c.flamapp.com/e?o=z50kwo",
+    publicUrl: "https://smartsense.africa/demo/business-scan-and-win",
+    desktopIntro:
+      "See how businesses can turn a simple scan into customer engagement, participation and measurable results.",
+    metaDescription: "An interactive Business Scan & Win demonstration from SmartSense Technologies.",
+    launchingText: "Opening your Business Scan & Win experience…",
+    launchLabel: "Launch Business Scan & Win",
+    scanPrompt: "Scan with your mobile phone to try the experience",
+    tagline: "Scan. Engage. Participate. Reward. Measure.",
+    redirectDelayMs: 1800,
   },
 };
