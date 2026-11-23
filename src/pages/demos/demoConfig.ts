@@ -71,7 +71,19 @@ export const DEMOS: Record<string, DemoConfig> = {
     portrait: { src: "/assets/images/prince-shehu-ali.jpeg", alt: "Prince Shehu Ali, PCC New Media Directorate" },
     redirectDelayMs: 3500,
     // PCC_MAINTENANCE_MODE: set to false to restore redirects.
-    maintenanceMode: true,
+    maintenanceMode: false,
+  },
+  "niger-state-airboard": {
+    recipient: "Niger State",
+    experience: "Airboard Experience",
+    supporting: "This interactive experience has been prepared specifically for Niger State by SmartSense Technologies.",
+    explanation: "This interactive experience has been prepared specifically for Niger State by SmartSense Technologies.",
+    // Destination for /demo/niger-state-airboard (independent of all other demos)
+    destinationUrl: "https://c.flamapp.com/e?o=kn2suw",
+    publicUrl: "https://smartsense.africa/demo/niger-state-airboard",
+    desktopIntro: "This interactive experience has been prepared specifically for Niger State by SmartSense Technologies.",
+    metaDescription: "An experience preview prepared specifically for Niger State by SmartSense Technologies.",
+    redirectDelayMs: 1800,
   },
   "business-scan-and-win": {
     eyebrow: "Interactive Business Demo",
