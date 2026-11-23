@@ -25,6 +25,8 @@ export type DemoConfig = {
   launchLabel?: string;
   scanPrompt?: string;
   tagline?: string;
+  // When true, no redirect or launch happens; a maintenance notice is shown instead.
+  maintenanceMode?: boolean;
 };
 
 export const DEMOS: Record<string, DemoConfig> = {
@@ -68,6 +70,8 @@ export const DEMOS: Record<string, DemoConfig> = {
     attribution: { primary: "PCC New Media Directorate", secondary: "Powered by Prince Shehu Ali" },
     portrait: { src: "/assets/images/prince-shehu-ali.jpeg", alt: "Prince Shehu Ali, PCC New Media Directorate" },
     redirectDelayMs: 3500,
+    // PCC_MAINTENANCE_MODE: set to false to restore redirects.
+    maintenanceMode: true,
   },
   "business-scan-and-win": {
     eyebrow: "Interactive Business Demo",

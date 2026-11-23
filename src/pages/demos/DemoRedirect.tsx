@@ -15,7 +15,7 @@ export default function DemoRedirect() {
   const [phone] = useState(() => isPhone());
 
   useEffect(() => {
-    if (!demo || !phone) return;
+    if (!demo || !phone || demo.maintenanceMode) return;
     const t = window.setTimeout(() => window.location.replace(demo.destinationUrl), demo.redirectDelayMs ?? REDIRECT_DELAY_MS);
     return () => window.clearTimeout(t);
   }, [demo, phone]);
@@ -38,7 +38,20 @@ export default function DemoRedirect() {
         className={`aspect-square rounded-2xl object-cover object-top shadow-xl ring-1 ring-white/20 ${cls}`}
       />
     ) : null;
-  const launch = () => window.location.assign(demo.destinationUrl);
+  const launch = () => {
+    if (demo.maintenanceMode) return;
+    window.location.assign(demo.destinationUrl);
+  };
+  const maintenanceNotice = (cls: string) => (
+    <div className={`rounded-xl border border-white/15 bg-white/5 p-5 backdrop-blur-sm ${cls}`} role="status">
+      <div className="flex items-center gap-3">
+        <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-cyan" aria-hidden="true" />
+        <p className="text-lg font-semibold leading-tight">Experience Temporarily Unavailable</p>
+      </div>
+      <p className="mt-3 text-sm text-white/85">We’re carrying out routine maintenance on this interactive experience.</p>
+      <p className="mt-1 text-sm text-white/70">The experience will be back shortly.</p>
+    </div>
+  );
 
   return (
     <>
@@ -69,6 +82,8 @@ export default function DemoRedirect() {
             ) : (
               <p className="mt-4 text-base font-medium text-white/90">{demo.supporting}</p>
             )}
+            {demo.maintenanceMode ? maintenanceNotice("mt-5 text-left") : (
+            <>
             <div className={demo.attribution ? "mt-5 rounded-xl border border-white/15 bg-white/5 p-5 backdrop-blur-sm" : "mt-8 rounded-xl border border-white/15 bg-white/5 p-5 backdrop-blur-sm"}>
               <div className="flex items-center gap-3" role="status" aria-live="polite">
                 <span className="h-5 w-5 shrink-0 animate-spin rounded-full border-2 border-white/25 border-t-cyan" />
@@ -86,6 +101,8 @@ export default function DemoRedirect() {
             <p className="mt-5 text-xs text-white/50">
               Your browser may request camera permission to activate the interactive experience.
             </p>
+            </>
+            )}
           </div>
         ) : demo.attribution ? (
           <div className="relative mx-auto grid min-h-[calc(100svh-4rem)] max-w-6xl items-center gap-10 container-px py-10 md:grid-cols-2 md:gap-14">
@@ -98,6 +115,7 @@ export default function DemoRedirect() {
               {portraitImg("mx-auto mt-5 w-full max-w-[320px] md:mx-0")}
             </div>
             <div className="flex flex-col items-center text-center">
+              {demo.maintenanceMode && maintenanceNotice("mb-8 w-full max-w-md text-left")}
               <p className="text-lg font-semibold md:text-xl">Scan with your mobile phone to launch the experience</p>
               <div className="mt-6 rounded-2xl bg-white p-5 shadow-2xl ring-1 ring-white/20">
                 <QRCodeSVG
