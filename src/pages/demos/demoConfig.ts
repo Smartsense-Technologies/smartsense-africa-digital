@@ -76,13 +76,19 @@ export const DEMOS: Record<string, DemoConfig> = {
   "niger-state-airboard": {
     recipient: "Niger State",
     experience: "Airboard Experience",
-    supporting: "This interactive experience has been prepared specifically for Niger State by SmartSense Technologies.",
-    explanation: "This interactive experience has been prepared specifically for Niger State by SmartSense Technologies.",
+    supporting:
+      "This interactive experience has been prepared specifically for Niger State by SmartSense Technologies in collaboration with MSR.",
+    explanation:
+      "This interactive experience has been prepared specifically for Niger State by SmartSense Technologies in collaboration with MSR.",
     // Destination for /demo/niger-state-airboard (independent of all other demos)
     destinationUrl: "https://c.flamapp.com/e?o=kn2suw",
     publicUrl: "https://smartsense.africa/demo/niger-state-airboard",
-    desktopIntro: "This interactive experience has been prepared specifically for Niger State by SmartSense Technologies.",
-    metaDescription: "An experience preview prepared specifically for Niger State by SmartSense Technologies.",
+    desktopIntro:
+      "This interactive experience has been prepared specifically for Niger State by SmartSense Technologies in collaboration with MSR.",
+    metaDescription:
+      "An experience preview prepared specifically for Niger State by SmartSense Technologies in collaboration with MSR.",
+    // Secondary acknowledgement below the QR code on desktop.
+    tagline: "SmartSense Technologies × MSR",
     redirectDelayMs: 1800,
   },
   "business-scan-and-win": {
