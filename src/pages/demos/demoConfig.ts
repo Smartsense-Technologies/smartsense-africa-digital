@@ -27,6 +27,9 @@ export type DemoConfig = {
   tagline?: string;
   // When true, no redirect or launch happens; a maintenance notice is shown instead.
   maintenanceMode?: boolean;
+  // Optional demo-only disclaimer lines; when set, the full-length avatar layout is used.
+  disclaimer?: string[];
+  avatar?: { src: string; alt: string };
 };
 
 export const DEMOS: Record<string, DemoConfig> = {
@@ -110,5 +113,29 @@ export const DEMOS: Record<string, DemoConfig> = {
     scanPrompt: "Scan with your mobile phone to try the experience",
     tagline: "Scan. Engage. Participate. Reward. Measure.",
     redirectDelayMs: 1800,
+  },  "political-scan-and-win": {
+    eyebrow: "Demonstration Only",
+    heading: "Political Scan and Win Demo",
+    pageTitle: "Political Scan and Win Demo | SmartSense Technologies",
+    recipient: "Political Scan and Win",
+    experience: "",
+    supporting:
+      "This is a SmartSense demonstration designed to showcase what is possible with interactive political engagement experiences.",
+    explanation: "",
+    // Destination for /demo/political-scan-and-win — swap this URL to change the experience.
+    destinationUrl: "https://mr.flamapp.com/e?o=muyd0i",
+    publicUrl: "https://smartsense.africa/demo/political-scan-and-win",
+    desktopIntro:
+      "This is a SmartSense demonstration designed to showcase what is possible with interactive political engagement experiences.",
+    metaDescription: "A generic SmartSense demonstration of interactive political engagement experiences. Demo content only.",
+    launchingText: "Opening the demo experience…",
+    launchLabel: "Launch Demo Experience",
+    scanPrompt: "Scan this QR code with your mobile phone to launch the demo experience.",
+    disclaimer: [
+      "This demonstration is not created for or endorsed by any real political candidate, political party or campaign.",
+      "The message and experience shown are demo content only and do not represent any actual manifesto, policy position, campaign promise or political affiliation.",
+    ],
+    avatar: { src: "/assets/images/political-scan-and-win-avatar.png", alt: "Demo avatar persona used in the Political Scan and Win demonstration" },
+    redirectDelayMs: 3500,
   },
 };
